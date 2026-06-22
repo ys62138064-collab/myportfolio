@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>郑雨丝 · 工笔水墨作品集</title>
+    <style>
+        /* 全局重置 & 雅致基调 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f1eb;
+            font-family: 'Georgia', 'Times New Roman', '宋体', 'KaiTi', serif;
+            color: #2e2a26;
+            padding: 2rem 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* 主容器 — 温润如纸 */
+        .portfolio {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 2.8rem 2.8rem 2rem;
+            border-radius: 40px;
+            box-shadow: 0 20px 44px -12px rgba(0, 0, 0, 0.06), 0 6px 18px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(210, 195, 180, 0.15);
+        }
+
+        /* 头部 — 艺术家身份 */
+        .artist-header {
+            text-align: center;
+            padding-bottom: 1.8rem;
+            border-bottom: 1px solid #eee5dd;
+            margin-bottom: 2.8rem;
+        }
+
+        .artist-name {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: 8px;
+            color: #3d322a;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        .artist-sub {
+            font-size: 0.85rem;
+            color: #b5a392;
+            letter-spacing: 4px;
+            margin-top: 0.2rem;
+        }
+
+        .artist-bio {
+            max-width: 760px;
+            margin: 1.4rem auto 0;
+            font-size: 1rem;
+            color: #3d3732;
+            letter-spacing: 0.02em;
+            padding: 0 0.5rem;
+        }
+
+        .artist-bio p {
+            margin-bottom: 0.6rem;
+        }
+
+        .artist-bio strong {
+            color: #4d3b30;
+            font-weight: 600;
+        }
+
+        .highlight-tag {
+            display: inline-block;
+            background: #f0e8e0;
+            padding: 0.05rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #5d4a38;
+        }
+
+        /* 分割装饰 */
+        .divider-light {
+            width: 60px;
+            height: 2px;
+            background: #dcd0c4;
+            margin: 0.8rem auto 1.2rem auto;
+            border-radius: 4px;
+        }
+
+        /* 作品卡片 — 每个作品独立区块 */
+        .artwork-block {
+            margin-bottom: 3.6rem;
+            padding-bottom: 2.8rem;
+            border-bottom: 1px solid #f0e8e0;
+        }
+
+        .artwork-block:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .artwork-title {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            color: #3d322a;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+
+        .artwork-meta {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #b5a392;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .artwork-concept {
+            max-width: 780px;
+            margin: 0.6rem auto 1.4rem;
+            font-size: 1.02rem;
+            text-align: justify;
+            padding: 0 0.2rem;
+            color: #2f2a26;
+            letter-spacing: 0.02em;
+        }
+
+        .artwork-concept p {
+            margin-bottom: 0.6rem;
+            text-indent: 2em;
+        }
+
+        .artwork-concept p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .artwork-spec {
+            display: inline-block;
+            background: #f3ede8;
+            padding: 0.1rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #6b5b4c;
+            letter-spacing: 1px;
+            margin-top: 0.3rem;
+        }
+
+        /* 图片容器 — 居中，优雅展示 */
+        .image-wrapper {
+            text-align: center;
+            margin: 0.8rem auto 0;
+            width: 100%;
+        }
+
+        .image-wrapper img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            max-height: 800px;
+            object-fit: contain;
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02);
+            background-color: #f3eee9;
+            border: 1px solid #f0e8e0;
+            transition: transform 0.25s ease;
+        }
+
+        .image-wrapper img:hover {
+            transform: scale(1.002);
+        }
+
+        .image-caption {
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: #b9a898;
+            letter-spacing: 2px;
+            font-style: italic;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .portfolio {
+                padding: 1.6rem 1rem;
+                border-radius: 28px;
+            }
+            .artist-name {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+            .artwork-title {
+                font-size: 1.4rem;
+                letter-spacing: 2px;
+            }
+            .artwork-concept {
+                font-size: 0.95rem;
+                text-align: left;
+            }
+            .artwork-concept p {
+                text-indent: 1.6em;
+            }
+            .image-wrapper img {
+                max-height: 500px;
+                border-radius: 14px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .portfolio {
+                padding: 1rem 0.6rem;
+                border-radius: 20px;
+            }
+            .artist-name {
+                font-size: 1.6rem;
+                letter-spacing: 2px;
+            }
+            .artist-bio {
+                font-size: 0.9rem;
+            }
+            .artwork-title {
+                font-size: 1.2rem;
+            }
+            .artwork-concept {
+                font-size: 0.88rem;
+            }
+            .artwork-concept p {
+                text-indent: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="portfolio">
+        <!-- ===== 艺术家简介 ===== -->
+        <div class="artist-header">
+            <div class="artist-name">郑雨丝</div>
+            <div class="artist-sub">· 工笔 · 水墨 · 当代 ·</div>
+            <div class="divider-light"></div>
+            <div class="artist-bio">
+                <p>
+                    <strong>2023年</strong> 毕业于暨南大学本科，<strong>2024年</strong> 在香港大学专业进修学院修读设计课程，
+                    <strong>2026年</strong> 入读香港教育大学研究生。
+                </p>
+                <p>
+                    现生活于香港并从事艺术教育工作，曾获得伦敦英国绘画比赛奖项，
+                    画作曾在英国伦敦与香港展出。曾被深圳万达广场邀请个展
+                    <span class="highlight-tag">「山有扶苏，隰有荷华」</span> 个展。
+                </p>
+                <p style="font-size: 0.95rem; color: #5d4f42; margin-top: 0.2rem;">
+                    擅长运用工笔绘画生活中的静物、所见所闻及研究古代仕女，
+                    在传统风格里面加入一些现代元素，赋予其美好的思想感情。
+                    用细腻的线条勾勒出物体的整体轮廓，用墨水晕染出不同的层次感和厚度，
+                    用色彩赋予其情感的完美释放。最后将美融于画作事物之中，
+                    以水墨的方式彰显「美学」韵味，塑造出富有现代人性的画面感，
+                    又能产生一种恬静淡雅，又不失风韵的现代水墨画作。
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== 作品1：《悠然自得》 ===== -->
+        <div class="artwork-block">
+            <div class="artwork-title">《悠然自得》</div>
+            <div class="artwork-meta">· 宣纸 · 2025 ·</div>
+            <div class="artwork-concept">
+                <p>
+                    北宋王希孟的《千里江山图》，绵延不绝的山峰，层次分明的色彩结构，
+                    甚是让人心旷神怡。因而将其重峦叠嶂的山峰和明艳夏日色彩，融入自己的想象，
+                    将峰峦嵌入茶杯中，通过清晰的山水景色，传递悠然自得的感受。
+                </p>
+                <p>
+                    在繁华喧嚣的城市之中，给予自己一片静谧而舒适的净土，疗愈心灵。
+                </p>
+                <div style="text-align: center; margin-top: 0.4rem;">
+                    <span class="artwork-spec">W38 × H38 cm · 宣纸 · 2025</span>
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="图片1.jpg" alt="《悠然自得》工笔水墨" loading="lazy">
+                <div class="image-caption">—— 悠然 · 山水 · 茶杯 ——</div>
+            </div>
+        </div>
+
+        <!-- ===== 作品2：《镜中蜃楼》 ===== -->
+        <div class="artwork-block">
+            <div class="artwork-title">《镜中蜃楼》</div>
+            <div class="artwork-meta">· 宣纸 · 卷轴 · 2025 ·</div>
+            <div class="artwork-concept">
+                <p>
+                    童年时时常听家里长辈娓娓道来建筑之宏伟，结构之复杂。因而便将建筑融入镜中花的想象之中，
+                    采用夏日轻盈、治愈系的柔和色调，展现「美」的内涵。
+                </p>
+                <p>
+                    绘画时，常冥想如果镜框里的建筑顶层有美丽的山水景色，能让在喧嚣的繁华都市里生存的人
+                    呼吸到新鲜的空气，欣赏大自然的山水，并从中寻找平静，享受大自然的包围，
+                    在这片喧嚷的土地中找到一片属于自己的净土。
+                </p>
+                <div style="text-align: center; margin-top: 0.4rem;">
+                    <span class="artwork-spec">W34 × H34 cm · 宣纸 · W42 × H79 cm · 卷轴 · 2025</span>
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="图片2.jpg" alt="《镜中蜃楼》工笔水墨" loading="lazy">
+                <div class="image-caption">—— 镜花 · 建筑 · 山水 ——</div>
+            </div>
+        </div>
+
+        <!-- ===== 作品3：《香飘四溢》 ===== -->
+        <div class="artwork-block">
+            <div class="artwork-title">《香飘四溢》</div>
+            <div class="artwork-meta">· 宣纸 · 2025 ·</div>
+            <div class="artwork-concept">
+                <p>
+                    每逢炎炎夏日，香港人总是喜欢捧着香飘四溢的奶茶欣赏着维港美丽的海景，
+                    拂面而来的海风抚平了因尘世纷扰的烦躁心情。
+                </p>
+                <p>
+                    而在深圳东门老街的夏天，是活力与烟火气的缩影。购物与美食让人沉浸在都市热闹的画卷里。
+                    无论是柔和惬意的海风还是霓虹闪烁的画卷，都让人卸下了疲惫的生活步伐。
+                </p>
+                <div style="text-align: center; margin-top: 0.4rem;">
+                    <span class="artwork-spec">W38 × H38 cm · 宣纸 · 2025</span>
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="图片3.jpg" alt="《香飘四溢》工笔水墨" loading="lazy">
+                <div class="image-caption">—— 奶茶 · 海风 · 烟火 ——</div>
+            </div>
+        </div>
+
+        <!-- ===== 作品4：《旋转木马》 ===== -->
+        <div class="artwork-block">
+            <div class="artwork-title">《旋转木马》</div>
+            <div class="artwork-meta">· 宣纸 · 卷轴 · 2025 ·</div>
+            <div class="artwork-concept">
+                <p>
+                    有时夜间卧枕时，脑海里的记忆芯片会回拨童年的夏天：小时候常与家人在游乐场游玩旋转木马，
+                    那时的无忧无虑，远是现实的物质难以比拟的。
+                </p>
+                <p>
+                    白驹过隙，再忆往昔时，欢声笑语时常环绕耳畔。童年里纯真美好温暖的童话，
+                    一直寄存于旋转木马的欢笑之中。
+                </p>
+                <div style="text-align: center; margin-top: 0.4rem;">
+                    <span class="artwork-spec">H35.5 × W23 cm · 宣纸 · H80 × W31 cm · 卷轴 · 2025</span>
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="图片4.jpg" alt="《旋转木马》工笔水墨" loading="lazy">
+                <div class="image-caption">—— 童年 · 木马 · 童话 ——</div>
+            </div>
+        </div>
+
+        <!-- ===== 作品5：《玉簪》 ===== -->
+        <div class="artwork-block">
+            <div class="artwork-title">《玉簪》</div>
+            <div class="artwork-meta">· 宣纸 · 2025 ·</div>
+            <div class="artwork-concept">
+                <p>
+                    玉簪子选用玉石为原料，玉在传统文化中象征着美德与君子之风，
+                    在《礼记》亦有中记载：“君子比德于玉，温润而泽仁也。”‌是古代仕女的饰物之一。
+                </p>
+                <p>
+                    玉石在文化中享有崇高的地位，代表高雅、纯洁、坚贞不渝。
+                    将古代的玉簪子结合现代工笔技法以及马卡龙柔和甜美的夏日色彩风格，
+                    赋予玉簪带来「幸运」的意义。
+                </p>
+                <div style="text-align: center; margin-top: 0.4rem;">
+                    <span class="artwork-spec">W38 × H38 cm · 宣纸 · 2025</span>
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="图片5.jpg" alt="《玉簪》工笔水墨" loading="lazy">
+                <div class="image-caption">—— 玉簪 · 君子 · 幸运 ——</div>
+            </div>
+        </div>
+
+        <!-- ===== 作品6：《凤冠霞帔》 ===== -->
+        <div class="artwork-block">
+            <div class="artwork-title">《凤冠霞帔》</div>
+            <div class="artwork-meta">· 宣纸 · 2025 ·</div>
+            <div class="artwork-concept">
+                <p>
+                    古代后妃及诰命夫人的礼服，由饰有凤凰的帽子和美如云霞的披肩组成，
+                    以示身份尊贵，荣耀显赫。
+                </p>
+                <p>
+                    在现代，凤冠霞帔逐渐演变成了传统中式婚礼的标配，象征着喜庆、祝福和身份。
+                    同时也是一种女性自我价值的美学表达、传统文化复兴的载体。
+                    画作将传统的古代服饰和夏日的缤纷色彩结合在一起，现展出高雅、恬静的古今韵味。
+                </p>
+                <div style="text-align: center; margin-top: 0.4rem;">
+                    <span class="artwork-spec">W42 × H29.7 cm · 宣纸 · 2025</span>
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="图片6.jpg" alt="《凤冠霞帔》工笔水墨" loading="lazy">
+                <div class="image-caption">—— 凤冠 · 霞帔 · 婚礼 ——</div>
+            </div>
+        </div>
+
+        <!-- ===== 作品7：《聘婷袅娜——女冠一、女冠二》 ===== -->
+        <div class="artwork-block">
+            <div class="artwork-title">《聘婷袅娜——女冠一、女冠二》</div>
+            <div class="artwork-meta">· 宣纸 · 卷轴 · 2025 ·</div>
+            <div class="artwork-concept">
+                <p>
+                    女冠是指中国古代妇女的贵重礼冠。它通常分为两种主要应用场景：
+                    一是古代后妃、命妇在重大典礼时所佩戴的头饰；
+                    二是旧时平民女子在婚礼上搭配「霞帔」使用的豪华头饰。
+                </p>
+                <p>
+                    画作将古代的传统饰物与现代夏日明亮的暖色系相融合，
+                    表达了古代女子对于美丽繁华的向往，也是对古韵美的一种精神寄托。
+                </p>
+                <div style="text-align: center; margin-top: 0.4rem;">
+                    <span class="artwork-spec">W34 × H33 cm · 宣纸 · W34 × H80 cm · 卷轴 · 2025</span>
+                </div>
+            </div>
+            <div class="image-wrapper">
+                <img src="图片7.jpg" alt="《聘婷袅娜——女冠一、女冠二》工笔水墨" loading="lazy">
+                <div class="image-caption">—— 女冠 · 古韵 · 华美 ——</div>
+            </div>
+        </div>
+
+        <!-- ===== 艺术家头像 / 签名图（原第八张图） ===== -->
+        <div class="artwork-block" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+            <div class="artwork-title" style="font-size: 1.4rem; letter-spacing: 2px; color: #6b5b4c;">· 艺术家 ·</div>
+            <div class="divider-light" style="margin-top: 0.2rem;"></div>
+            <div class="image-wrapper" style="margin-top: 0.2rem;">
+                <img src="图片8.jpg" alt="郑雨丝 · 艺术家肖像" loading="lazy" style="max-height: 600px; border-radius: 30px;">
+                <div class="image-caption">—— 郑雨丝 · 工笔 · 水墨 ——</div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end portfolio -->
+</body>
+</html>
