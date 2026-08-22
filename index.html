@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>郑雨丝 · 艺境漫游 · VR画廊</title>
+    <!-- A-frame 核心库 & 额外组件 -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; font-family: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+        #info {
+            position: absolute;
+            bottom: 24px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #3d2a33;
+            font-size: 15px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 25px rgba(255, 220, 230, 0.9);
+            pointer-events: none;
+            z-index: 10;
+            background: rgba(255, 235, 240, 0.3);
+            backdrop-filter: blur(8px);
+            padding: 14px 0;
+            border-radius: 48px;
+            max-width: 680px;
+            margin: 0 auto 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 1px solid rgba(255, 200, 215, 0.4);
+            box-shadow: 0 8px 30px rgba(200, 130, 150, 0.15);
+        }
+        #info a {
+            color: #7a4a5e;
+            font-weight: 400;
+            text-decoration: none;
+            border-bottom: 1px dashed #c99aa8;
+        }
+        @media (max-width: 600px) {
+            #info { font-size: 11px; max-width: 92%; padding: 10px 0; bottom: 12px; }
+        }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #6a3f50;
+            background: rgba(255, 235, 240, 0.85);
+            padding: 18px 40px;
+            border-radius: 60px;
+            backdrop-filter: blur(8px);
+            border: 1px solid #f7cedb;
+            font-weight: 300;
+            letter-spacing: 4px;
+            z-index: 20;
+            pointer-events: none;
+            transition: opacity 0.6s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading" id="loading">🌸 加载画境 ...</div>
+    <div id="info">
+        🎨 郑雨丝 · 艺境漫游 · 拖动视角 / 点击画框欣赏 · 柔光渐变VR
+    </div>
+
+    <a-scene 
+        background="color: #f5e3eb" 
+        fog="type: exponential; color: #f5e3eb; density: 0.007"
+        vr-mode-ui="enabled: true"
+        cursor="rayOrigin: mouse"
+        raycaster="far: 25; interval: 80; objects: .clickable"
+        light="defaultLightsEnabled: false; ambient: #f5dae6;"
+        >
+
+        <!-- 柔和渐变光源: 粉紫/暖粉 -->
+        <a-light type="ambient" color="#fad3e0" intensity="0.8"></a-light>
+        <a-light type="hemisphere" color="#ffc1d4" groundColor="#ecd0da" intensity="0.9"></a-light>
+        <a-light type="point" color="#ffb0c5" position="3 5 6" intensity="0.7"></a-light>
+        <a-light type="point" color="#f5b0ca" position="-5 4 -4" intensity="0.6"></a-light>
+        <a-light type="directional" color="#ffe6ef" position="2 6 4" intensity="0.6"></a-light>
+        <a-light type="point" color="#e8b0d0" position="0 2 -8" intensity="0.5"></a-light>
+
+        <!-- 摄像机 (wasd移动 + 鼠标拖拽) -->
+        <a-entity camera="userHeight: 1.6; fov: 70" 
+                  position="0 1.8 7" 
+                  look-controls="reverseMouseDrag: true; touchEnabled: true"
+                  wasd-controls="acceleration: 6; easing: 20"
+                  rotation="0 0 0">
+        </a-entity>
+
+        <!-- 环境点缀: 漂浮柔和粒子 (仿花瓣/光点) -->
+        <a-entity particle-system="preset: snow; particleCount: 200; color: #fbc4d0, #f5b8cc, #fad0dc; size: 0.07; velocity: 0.006; opacity: 0.45; sizeSpread: 0.08;"></a-entity>
+
+        <!-- ========= 环形画作布局 ========= -->
+        <!-- 1. 悠然自得 -->
+        <a-entity position="-3.0 1.0 -3.8" rotation="0 28 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25; metalness: 0.05" 
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img1}">
+                <a-image src="图片1.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《悠然自得》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16" position="0 0 0"></a-text>
+                <a-text value="心境山水 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 2. 镜中蜃楼 -->
+        <a-entity position="-1.2 1.0 -4.6" rotation="0 15 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img2}">
+                <a-image src="图片2.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《镜中蜃楼》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="心境山水 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 3. 香飘四溢 -->
+        <a-entity position="0.8 1.0 -5.0" rotation="0 -5 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img3}">
+                <a-image src="图片3.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《香飘四溢》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="生活雅趣 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 4. 懒惰猫猫 -->
+        <a-entity position="2.8 1.0 -4.5" rotation="0 -22 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img4}">
+                <a-image src="图片4.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《懒惰猫猫》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="生活雅趣 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 5. 旋转木马 -->
+        <a-entity position="4.2 1.0 -3.5" rotation="0 -38 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img5}">
+                <a-image src="图片5.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《旋转木马》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="生活雅趣 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 6. 丹顶鹤寿 -->
+        <a-entity position="4.8 1.0 -1.8" rotation="0 -55 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img6}">
+                <a-image src="图片6.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《丹顶鹤寿》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="祥瑞祈愿 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 7. 鱼跃团圆 -->
+        <a-entity position="4.8 1.0 -0.2" rotation="0 -70 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img7}">
+                <a-image src="图片7.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《鱼跃团圆》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="祥瑞祈愿 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 8. 栀子锦簇 -->
+        <a-entity position="4.5 1.0 1.4" rotation="0 -80 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img8}">
+                <a-image src="图片8.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《栀子锦簇》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="祥瑞祈愿 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 9. 凤冠霞帔 -->
+        <a-entity position="3.5 1.0 3.0" rotation="0 -95 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img9}">
+                <a-image src="图片9.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《凤冠霞帔》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="古韻新聲 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 10. 聘婷袅娜 -->
+        <a-entity position="1.8 1.0 4.0" rotation="0 -110 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img10}">
+                <a-image src="图片10.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《聘婷袅娜》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="古韻新聲 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 11. 玉簪 -->
+        <a-entity position="0.0 1.0 4.8" rotation="0 -125 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img11}">
+                <a-image src="图片11.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《玉簪》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="古韻新聲 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 12. 清馬騰飛 -->
+        <a-entity position="-1.8 1.0 4.4" rotation="0 -140 0">
+            <a-plane class="clickable" width="1.8" height="1.8" color="#f7e3ec" material="side: double; roughness: 0.25"
+                     event-set__click="_event: click; _target: #modal; _delay: 200; _props: {visible: true, src: #img12}">
+                <a-image src="图片12.jpg" width="1.6" height="1.6" position="0 0.1 0.01"></a-image>
+                <a-plane width="1.9" height="1.9" color="#dbb0c0" position="0 0 -0.02" opacity="0.25"></a-plane>
+            </a-plane>
+            <a-entity position="0 -1.1 0.1">
+                <a-text value="《清馬騰飛》" color="#4d2e3b" align="center" width="2.4" font="helvetiker" size="0.16"></a-text>
+                <a-text value="古韻新聲 · 2025" color="#784e62" align="center" width="2.4" font="helvetiker" size="0.1" position="0 -0.28 0"></a-text>
+            </a-entity>
+        </a-entity>
+
+        <!-- 13. 艺术家简介 (独立展板) 并包含图片13 -->
+        <a-entity position="-4.2 1.0 1.8" rotation="0 45 0">
+            <a-plane width="2.2" height="2.8" color="#faeaf0" material="side: double; roughness: 0.4; opacity: 0.9" 
+                     position="0 0 0">
+                <a-text value="🌸 郑雨丝 · 艺术家" color="#3d2630" align="center" width="2.6" font="helvetiker" size="0.2" position="0 1.2 0.01"></a-text>
+                <a-text value="2023 暨南大学本科" color="#5f3a4a" align="center" width="2.6" font="helvetiker" size="0.14" position="0 0.85 0.01"></a-text>
+                <a-text value="2024 港大进修学院" color="#5f3a4a" align="center" width="2.6" font="helvetiker" size="0.14" position="0 0.55 0.01"></a-text>
+                <a-text value="2026 香港教育大学研究生" color="#5f3a4a" align="center" width="2.6" font="helvetiker" size="0.14" position="0 0.25 0.01"></a-text>
+                <a-text value="🏅 伦敦绘画奖 · 港深个展" color="#784e62" align="center" width="2.6" font="helvetiker" size="0.13" position="0 -0.1 0.01"></a-text>
+                <a-text value="工笔静物 · 现代仕女" color="#784e62" align="center" width="2.6" font="helvetiker" size="0.13" position="0 -0.45 0.01"></a-text>
+                <a-text value="「山有扶苏」深圳个展" color="#784e62" align="center" width="2.6" font="helvetiker" size="0.13" position="0 -0.8 0.01"></a-text>
+                <a-text value="—— 融古韵于今风 ——" color="#a0687a" align="center" width="2.6" font="helvetiker" size="0.12" position="0 -1.15 0.01"></a-text>
+                <a-text value="以工笔绘见闻 · 赋传统以新声" color="#b07a8a" align="center" width="2.6" font="helvetiker" size="0.11" position="0 -1.5 0.01"></a-text>
+                <!-- 嵌入艺术家图片 (小尺寸) -->
+                <a-image src="图片13.jpg" width="0.8" height="1.0" position="1.0 0.1 0.01" opacity="0.6"></a-image>
+            </a-plane>
+        </a-entity>
+
+        <!-- ========= 点击放大modal ========= -->
+        <a-entity id="modal" visible="false" position="0 1.6 0" 
+                  geometry="primitive: plane; width: 6.4; height: 6.4" 
+                  material="color: #faeaf0; opacity: 0.94; roughness: 0.15; side: double; transparent: true"
+                  event-set__click="_event: click; _target: #modal; _props: {visible: false}">
+            <a-image id="modalImage" src="" width="5.2" height="5.2" position="0 0.1 0.01"></a-image>
+            <a-text id="modalText" value="点击画作 · 静观其韵" color="#3d2630" align="center" width="6" font="helvetiker" size="0.2" position="0 -2.9 0.01"></a-text>
+            <a-text value="点击任意处关闭" color="#8a5e72" align="center" width="5" font="helvetiker" size="0.14" position="0 -3.3 0.01"></a-text>
+        </a-entity>
+
+        <!-- 地面: 柔和渐变感 -->
+        <a-plane width="40" height="40" rotation="-90 0 0" position="0 -0.8 0" 
+                 material="color: #f7dbe6; roughness: 0.9; metalness: 0.05"></a-plane>
+        <a-circle radius="12" position="0 -0.75 -8" material="color: #fad0dd; opacity: 0.2; side: double"></a-circle>
+        <a-circle radius="8" position="-3 -0.75 4" material="color: #fbc4d6; opacity: 0.15; side: double"></a-circle>
+
+        <!-- 漂浮小光球 -->
+        <a-entity position="-2.5 2.2 -5">
+            <a-sphere radius="0.08" color="#f8b0c8" animation="property: position; to: 0 -1.2 0; loop: true; dur: 4500; easing: easeInOutQuad; dir: alternate"></a-sphere>
+        </a-entity>
+        <a-entity position="3.2 1.8 -4.5">
+            <a-sphere radius="0.07" color="#f5b8d0" animation="property: position; to: 0 -0.9 0; loop: true; dur: 3800; easing: easeInOutQuad; dir: alternate; delay: 800"></a-sphere>
+        </a-entity>
+        <a-entity position="-1.5 2.8 3.5">
+            <a-sphere radius="0.09" color="#fcc4d6" animation="property: position; to: 0 -1.5 0; loop: true; dur: 5000; easing: easeInOutQuad; dir: alternate; delay: 300"></a-sphere>
+        </a-entity>
+        <a-entity position="4.0 2.0 2.0">
+            <a-sphere radius="0.06" color="#fbc8da" animation="property: position; to: 0 -1.0 0; loop: true; dur: 4200; easing: easeInOutQuad; dir: alternate; delay: 1200"></a-sphere>
+        </a-entity>
+
+    </a-scene>
+
+    <script>
+        // 加载完成隐藏loading
+        window.addEventListener('load', function() {
+            const loading = document.getElementById('loading');
+            if (loading) loading.style.opacity = '0';
+            setTimeout(() => { if(loading) loading.style.display = 'none'; }, 700);
+        });
+
+        // 点击画框更新modal
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImage');
+        const modalText = document.getElementById('modalText');
+
+        document.querySelector('a-scene').addEventListener('click', function(evt) {
+            const target = evt.target;
+            if (target.classList && target.classList.contains('clickable')) {
+                const imgEl = target.querySelector('a-image');
+                if (imgEl) {
+                    const src = imgEl.getAttribute('src');
+                    if (src && modal) {
+                        modalImg.setAttribute('src', src);
+                        let name = src.replace('.jpg','').replace('图片','作品');
+                        modalText.setAttribute('value', `✨ ${name} · 工笔雅韵 ✨`);
+                        modal.setAttribute('visible', true);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
